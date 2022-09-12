@@ -67,6 +67,14 @@ func TestInsert(t *testing.T) {
 			},
 			want: &TreeNode{Val: 2, Left: &TreeNode{Val: 1}},
 		},
+		{
+			name: "repeat",
+			args: args{
+				root: &TreeNode{Val: 2},
+				val:  2,
+			},
+			want: &TreeNode{Val: 2},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -91,7 +99,7 @@ func TestInorderTraversal(t *testing.T) {
 			args: args{
 				root: InitBST([]int{1, 5, 7, 9, 2, 8, 8, 10}),
 			},
-			want: []int{1, 2, 5, 7, 8, 8, 9, 10},
+			want: []int{1, 2, 5, 7, 8, 9, 10},
 		},
 	}
 	for _, tt := range tests {

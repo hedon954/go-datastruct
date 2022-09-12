@@ -2,7 +2,6 @@ package bst
 
 import (
 	"math"
-	"sort"
 )
 
 // InitBST creates a bst from an array
@@ -10,17 +9,20 @@ func InitBST(values []int) *TreeNode {
 	if len(values) == 0 {
 		return nil
 	}
-	sort.Ints(values)
-
 	var root *TreeNode
 	for i := 0; i < len(values); i++ {
-		Insert(root, values[i])
+		root = Insert(root, values[i])
 	}
 	return root
 }
 
 // Insert inserts a new node to bst
 func Insert(root *TreeNode, val int) *TreeNode {
+	// exists, return
+	if Exist(root, val) {
+		return root
+	}
+
 	n := &TreeNode{Val: val}
 
 	// empty tree
@@ -131,14 +133,14 @@ func IsBST(root *TreeNode) bool {
 	return isBST(root, math.MinInt64, math.MaxInt64)
 }
 
-func isBST(root *TreeNode, lower, upper int) bool {
+func isBST(root *TreeNode, lower, upper int64) bool {
 	if root == nil {
 		return true
 	}
 
-	if root.Val <= lower || root.Val >= upper {
+	if int64(root.Val) <= lower || int64(root.Val) >= upper {
 		return false
 	}
 
-	return isBST(root.Left, lower, root.Val) && isBST(root.Right, root.Val, upper)
+	return isBST(root.Left, lower, int64(root.Val)) && isBST(root.Right, int64(root.Val), upper)
 }
