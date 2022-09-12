@@ -112,7 +112,11 @@ func Delete(root *TreeNode, val int) *TreeNode {
 			pre = cur
 			cur = cur.Left
 		}
-		pre.Right = cur.Right
+		if pre == root {
+			cur.Left = root.Left
+			return cur
+		}
+		pre.Left = cur.Right
 		cur.Left = root.Left
 		cur.Right = root.Right
 		root = cur
